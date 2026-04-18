@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dharma Teja Lanka — Data Analytics Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --bg2: #f2f0eb;
+    --bg3: #eceae3;
+    --text: #1a1916;
+    --text2: #6b6860;
+    --text3: #9b9890;
+    --border: rgba(26,25,22,0.12);
+    --border2: rgba(26,25,22,0.22);
+    --accent: #1a1916;
+    --accent-text: #faf9f6;
+    --green: #3b6d11;
+    --card: #ffffff;
+  }
+  [data-theme="dark"] {
+    --bg: #111110;
+    --bg2: #1a1916;
+    --bg3: #222220;
+    --text: #f0ede6;
+    --text2: #9b9890;
+    --text3: #6b6860;
+    --border: rgba(240,237,230,0.1);
+    --border2: rgba(240,237,230,0.2);
+    --accent: #f0ede6;
+    --accent-text: #111110;
+    --green: #97c459;
+    --card: #1a1916;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* ── FADE IN ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .fade-1 { animation-delay: 0.05s; }
+  .fade-2 { animation-delay: 0.15s; }
+  .fade-3 { animation-delay: 0.25s; }
+  .fade-4 { animation-delay: 0.35s; }
+  .fade-5 { animation-delay: 0.45s; }
+  .fade-6 { animation-delay: 0.55s; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 2.5rem;
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: -0.2px; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 12px; color: var(--text2); text-decoration: none;
+    letter-spacing: 0.8px; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .theme-btn {
+    background: none; border: 0.5px solid var(--border2);
+    color: var(--text2); cursor: pointer; font-size: 14px;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-family: 'Outfit', sans-serif;
+  }
+  .theme-btn:hover { background: var(--bg2); color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid; grid-template-columns: 1.15fr 1fr;
+    border-bottom: 0.5px solid var(--border);
+    min-height: 500px;
+  }
+  .hero-left {
+    padding: 3.5rem 2.5rem;
+    border-right: 0.5px solid var(--border);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-right {
+    padding: 3.5rem 2.5rem;
+    background: var(--bg2);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase;
+    color: var(--text2); border: 0.5px solid var(--border);
+    padding: 5px 14px; border-radius: 999px; margin-bottom: 1.5rem;
+    background: var(--bg); width: fit-content;
+  }
+  .dot-green { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .hero-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 0.5rem; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: 54px; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 1.25rem; }
+  .hero-name em { font-style: italic; color: var(--text2); }
+  .hero-desc { font-size: 15px; color: var(--text2); max-width: 400px; margin-bottom: 2rem; line-height: 1.75; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--accent-text);
+    border: none; padding: 11px 22px; border-radius: 8px;
+    font-size: 13px; font-family: 'Outfit', sans-serif; cursor: pointer;
+    font-weight: 500; transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 0.5px solid var(--border2); padding: 11px 22px;
+    border-radius: 8px; font-size: 13px;
+    font-family: 'Outfit', sans-serif; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-outline:hover { background: var(--bg3); }
+
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card {
+    background: var(--card); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem;
+    transition: background 0.3s;
+  }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 32px; line-height: 1; margin-bottom: 3px; }
+  .stat-label { font-size: 11px; color: var(--text2); }
+
+  .edu-block { border-top: 0.5px solid var(--border); padding-top: 1rem; margin-top: 1rem; }
+  .edu-school { font-size: 13px; font-weight: 500; }
+  .edu-deg { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .edu-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  /* ── ABOUT ── */
+  .about-section {
+    display: grid; grid-template-columns: 1fr 2fr;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .about-label {
+    padding: 2.5rem 2.5rem;
+    border-right: 0.5px solid var(--border);
+    display: flex; align-items: flex-start;
+  }
+  .about-content { padding: 2.5rem 2.5rem; }
+  .about-content p { font-size: 15px; color: var(--text2); line-height: 1.85; margin-bottom: 1rem; }
+  .about-content p:last-child { margin-bottom: 0; }
+  .about-content strong { color: var(--text); font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 2.5rem 2.5rem; border-bottom: 0.5px solid var(--border); }
+  .sec-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.75rem; }
+  .sec-title { font-family: 'Playfair Display', serif; font-size: 24px; }
+  .sec-count { font-size: 11px; color: var(--text3); }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: grid; grid-template-columns: 200px 1fr 140px;
+    gap: 1.5rem; padding: 1.25rem 0;
+    border-bottom: 0.5px solid var(--border);
+    align-items: start;
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-company { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+  .exp-role { font-size: 11px; color: var(--text2); letter-spacing: 0.5px; }
+  .exp-desc { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .exp-meta { text-align: right; }
+  .exp-date { font-size: 11px; color: var(--text3); }
+  .exp-loc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .exp-tag {
+    display: inline-block; font-size: 10px; letter-spacing: 0.8px;
+    text-transform: uppercase; background: var(--bg2);
+    border: 0.5px solid var(--border); color: var(--text2);
+    padding: 2px 8px; border-radius: 4px; margin-top: 6px;
+  }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .proj-card {
+    background: var(--bg2); border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .proj-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .proj-tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 0.6rem; }
+  .proj-title { font-family: 'Playfair Display', serif; font-size: 17px; line-height: 1.3; margin-bottom: 0.6rem; }
+  .proj-desc { font-size: 13px; color: var(--text2); line-height: 1.65; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .proj-chip {
+    font-size: 10px; color: var(--text3);
+    border: 0.5px solid var(--border); padding: 2px 10px;
+    border-radius: 999px; background: var(--bg);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-bottom: 0.5px solid var(--border); }
+  .skills-col { padding: 2.5rem 2.5rem; border-right: 0.5px solid var(--border); }
+  .skills-col:last-child { border-right: none; }
+  .skills-col-title { font-family: 'Playfair Display', serif; font-size: 16px; margin-bottom: 1rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-size: 12px; color: var(--text2);
+    border: 0.5px solid var(--border); padding: 5px 13px;
+    border-radius: 999px; background: var(--bg2);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .pill:hover { border-color: var(--border2); color: var(--text); }
+
+  /* ── CERTS ── */
+  .cert-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0; border-bottom: 0.5px solid var(--border); gap: 1rem;
+  }
+  .cert-item:last-child { border-bottom: none; }
+  .cert-name { font-size: 13px; }
+  .cert-issuer { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .cert-year { font-size: 11px; color: var(--text3); white-space: nowrap; flex-shrink: 0; }
+
+  /* ── CONTACT ── */
+  .contact-band {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .contact-left {
+    padding: 3rem 2.5rem;
+    border-right: 0.5px solid var(--border);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-right {
+    padding: 3rem 2.5rem; background: var(--bg2);
+    display: flex; flex-direction: column; justify-content: center; gap: 1.25rem;
+  }
+  .contact-headline { font-family: 'Playfair Display', serif; font-size: 34px; line-height: 1.2; margin-bottom: 1rem; }
+  .contact-headline em { font-style: italic; color: var(--text2); }
+  .contact-sub { font-size: 14px; color: var(--text2); max-width: 320px; line-height: 1.7; }
+  .contact-item { display: flex; align-items: center; gap: 12px; }
+  .contact-icon { font-size: 16px; width: 36px; height: 36px; border: 0.5px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--card); flex-shrink: 0; }
+  .contact-detail { }
+  .contact-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); }
+  .contact-value { font-size: 13px; color: var(--text); }
+  .contact-value a { color: var(--text); text-decoration: none; }
+  .contact-value a:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2.5rem; font-size: 11px; color: var(--text3);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero, .about-section, .contact-band { grid-template-columns: 1fr; }
+    .hero-left, .about-label, .contact-left { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .hero-name { font-size: 38px; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-meta { text-align: left; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skills-col { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .skills-col:last-child { border-bottom: none; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links a { display: none; }
+    .section, .about-content, .contact-left, .contact-right, .hero-left, .hero-right { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Dharma Teja Lanka</div>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#experience">experience</a>
+    <a href="#projects">projects</a>
+    <a href="#skills">skills</a>
+    <a href="#contact">contact</a>
+    <button class="theme-btn" id="themeBtn" title="Toggle dark mode">☀</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="badge fade fade-1"><div class="dot-green"></div>Open to opportunities · 2026</div>
+    <div class="hero-label fade fade-1">Data Analytics Engineer</div>
+    <h1 class="hero-name fade fade-2">Dharma<br><em>Teja Lanka</em></h1>
+    <p class="hero-desc fade fade-3">Graduate student at George Mason University turning raw data into decisions — through dashboards, ML models, and analytics that actually get used.</p>
+    <div class="btn-row fade fade-4">
+      <a href="#projects"><button class="btn-primary">View my projects</button></a>
+      <a href="#contact"><button class="btn-outline">Get in touch</button></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid fade fade-2">
+      <div class="stat-card">
+        <div class="stat-num">3.5</div>
+        <div class="stat-label">GPA at GMU</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Analytics projects</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Internships & roles</div>
+      </div>
+    </div>
+    <div class="fade fade-3">
+      <div class="edu-block">
+        <div class="edu-school">George Mason University</div>
+        <div class="edu-deg">M.S. Data Analytics Engineering</div>
+        <div class="edu-meta">Fairfax, VA · GPA 3.5 · Graduating Jun 2026</div>
+      </div>
+      <div class="edu-block">
+        <div class="edu-school">Vignan's Institute of Information Technology</div>
+        <div class="edu-deg">B.Tech. Artificial Intelligence & Data Science</div>
+        <div class="edu-meta">India · GPA 8.03/10 · 2024</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-section" id="about">
+  <div class="about-label">
+    <div class="sec-title">About me</div>
+  </div>
+  <div class="about-content">
+    <p>I'm <strong>Dharma Teja Lanka</strong>, a data analytics engineer in the making — currently completing my Master's at George Mason University in Fairfax, VA, where I've maintained a 3.5 GPA while diving deep into the intersection of data, machine learning, and real-world decision-making.</p>
+    <p>My journey started with a B.Tech in AI & Data Science in India, where I first got hooked on the idea that hidden in every dataset is a story worth telling. Since then I've built chatbots with NLP, created marketing dashboards with Google Analytics and Looker Studio, developed deep learning models for image captioning and speech emotion recognition, and shipped web applications that put data in front of the people who need it.</p>
+    <p>I'm equally comfortable working in <strong>Python, SQL, and R</strong> as I am presenting findings to stakeholders or documenting a data pipeline for a future team. I believe great analytics isn't just about the numbers — it's about making the right people care about them.</p>
+    <p>When I'm not building models or dashboards, I'm exploring how emerging AI tools are reshaping the way we work — and figuring out how to stay a step ahead.</p>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section" id="experience">
+  <div class="sec-header">
+    <div class="sec-title">Experience</div>
+    <div class="sec-count">3 roles</div>
+  </div>
+  <div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-company">SBI Life Insurance</div>
+        <div class="exp-role">LifeMitra Insurance Advisor</div>
+        <span class="exp-tag">Part-time</span>
+      </div>
+      <div class="exp-desc">Tracked client and sales data in Excel, translating numbers into data-driven insights for business decision-making. Strengthened stakeholder communication and reporting skills by presenting findings clearly to non-technical audiences.</div>
+      <div class="exp-meta">
+        <div class="exp-date">Jul 2023 – Jun 2024</div>
+        <div class="exp-loc">India</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-company">InternPe</div>
+        <div class="exp-role">Web Development Intern</div>
+        <span class="exp-tag">Remote</span>
+      </div>
+      <div class="exp-desc">Built functional web applications — including a quiz app, length converter, and API dashboard — using HTML, CSS, JavaScript, and PHP. Improved usability through iterative design and created thorough documentation and handoff guides for project transition.</div>
+      <div class="exp-meta">
+        <div class="exp-date">May – Jun 2023</div>
+        <div class="exp-loc">Remote</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-company">Coincent.ai</div>
+        <div class="exp-role">Data Science Intern</div>
+        <span class="exp-tag">Microsoft & IBM Partner</span>
+      </div>
+      <div class="exp-desc">Developed a conversational chatbot using machine learning and Dialogflow, applying NLP techniques to understand and respond to user intent. Supported data workflows and contributed to team reporting infrastructure at a Microsoft & IBM partner organization.</div>
+      <div class="exp-meta">
+        <div class="exp-date">Jul – Aug 2022</div>
+        <div class="exp-loc">Remote</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="projects">
+  <div class="sec-header">
+    <div class="sec-title">Projects</div>
+    <div class="sec-count">4 projects</div>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-tag">Analytics · Visualization</div>
+      <div class="proj-title">Website Analytics Dashboard</div>
+      <div class="proj-desc">Built a comprehensive Google Analytics + Looker Studio dashboard tracking sessions, bounce rates, conversion funnels, and user journeys — delivering stakeholder-ready reports with actionable insights.</div>
+      <div class="proj-stack">
+        <span class="proj-chip">Google Analytics</span>
+        <span class="proj-chip">Looker Studio</span>
+        <span class="proj-chip">Data Visualization</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-tag">Marketing Analytics</div>
+      <div class="proj-title">Social Media & Email Analysis</div>
+      <div class="proj-desc">Implemented UTM tracking tags, analyzed campaign engagement across channels, and produced Excel-based reports with clear, data-backed recommendations for improving marketing performance.</div>
+      <div class="proj-stack">
+        <span class="proj-chip">UTM Tracking</span>
+        <span class="proj-chip">Excel</span>
+        <span class="proj-chip">Campaign Analytics</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-tag">Machine Learning · Audio</div>
+      <div class="proj-title">Speech Emotion Recognition</div>
+      <div class="proj-desc">Designed a Python-based ML pipeline using Librosa for audio feature extraction to classify human emotions from speech recordings — achieving robust multi-class emotion detection.</div>
+      <div class="proj-stack">
+        <span class="proj-chip">Python</span>
+        <span class="proj-chip">Librosa</span>
+        <span class="proj-chip">Machine Learning</span>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-tag">Deep Learning · Computer Vision</div>
+      <div class="proj-title">Image Captioning — VGG16 + LSTM</div>
+      <div class="proj-desc">Built an end-to-end deep learning model combining a VGG16 CNN encoder with an LSTM decoder and attention mechanism for accurate, contextually relevant image captioning.</div>
+      <div class="proj-stack">
+        <span class="proj-chip">Python</span>
+        <span class="proj-chip">VGG16</span>
+        <span class="proj-chip">LSTM</span>
+        <span class="proj-chip">Attention</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-grid" id="skills">
+  <div class="skills-col">
+    <div class="skills-col-title">Analytics & BI</div>
+    <div class="pills">
+      <span class="pill">Google Analytics</span>
+      <span class="pill">Looker Studio</span>
+      <span class="pill">Power BI</span>
+      <span class="pill">Tableau</span>
+      <span class="pill">Excel</span>
+      <span class="pill">SQL</span>
+    </div>
+  </div>
+  <div class="skills-col">
+    <div class="skills-col-title">Programming & AI</div>
+    <div class="pills">
+      <span class="pill">Python</span>
+      <span class="pill">R</span>
+      <span class="pill">Machine Learning</span>
+      <span class="pill">NLP</span>
+      <span class="pill">Deep Learning</span>
+      <span class="pill">C</span>
+    </div>
+  </div>
+  <div class="skills-col">
+    <div class="skills-col-title">Web & Tools</div>
+    <div class="pills">
+      <span class="pill">HTML / CSS / JS</span>
+      <span class="pill">WordPress</span>
+      <span class="pill">Canva</span>
+      <span class="pill">Documentation</span>
+      <span class="pill">Stakeholder Comms</span>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-title">Certifications</div>
+    <div class="sec-count">5 certs</div>
+  </div>
+  <div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">AWS Academy — Cloud Foundations & ML Foundations</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+      </div>
+      <div class="cert-year">2024</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Career Essentials in Generative AI</div>
+        <div class="cert-issuer">Microsoft & LinkedIn</div>
+      </div>
+      <div class="cert-year">2023</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Data Science Methodology</div>
+        <div class="cert-issuer">IBM</div>
+      </div>
+      <div class="cert-year">2022</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">Successful Negotiation</div>
+        <div class="cert-issuer">Coursera</div>
+      </div>
+      <div class="cert-year">2022</div>
+    </div>
+    <div class="cert-item">
+      <div>
+        <div class="cert-name">C Programming</div>
+        <div class="cert-issuer">Sololearn</div>
+      </div>
+      <div class="cert-year">2021</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-band" id="contact">
+  <div class="contact-left">
+    <h2 class="contact-headline">Let's turn your data<br>into <em>decisions.</em></h2>
+    <p class="contact-sub">I'm currently open to data analytics, data science, and marketing analytics roles or internships. Let's connect.</p>
+    <div style="margin-top:1.75rem;">
+      <a href="mailto:dlanka@gmu.edu"><button class="btn-primary">Send me an email</button></a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="contact-item">
+      <div class="contact-icon">✉</div>
+      <div class="contact-detail">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:dlanka@gmu.edu">dlanka@gmu.edu</a></div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">☏</div>
+      <div class="contact-detail">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">(571) 435-0605</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">in</div>
+      <div class="contact-detail">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value"><a href="https://linkedin.com/in/dharma-teja-lanka" target="_blank">linkedin.com/in/dharma-teja-lanka</a></div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">⌖</div>
+      <div class="contact-detail">
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Fairfax, VA — open to remote</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Dharma Teja Lanka · 2026</span>
+  <span>George Mason University · Data Analytics Engineering</span>
+</footer>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  btn.textContent = saved === 'dark' ? '☀' : '☾';
+
+  btn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? '☀' : '☾';
+  });
+
+  // Scroll-based fade-in for sections below the hero
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.exp-item, .proj-card, .cert-item, .pill, .skills-col').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
